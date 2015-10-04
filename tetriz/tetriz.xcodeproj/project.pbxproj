@@ -13,6 +13,7 @@
 		EC1D14661BC1050500E044D7 /* tetriz.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EC1D14641BC1050500E044D7 /* tetriz.xcdatamodeld */; };
 		EC1D14681BC1050500E044D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC1D14671BC1050500E044D7 /* Assets.xcassets */; };
 		EC1D146B1BC1050500E044D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC1D14691BC1050500E044D7 /* LaunchScreen.storyboard */; };
+		EC1D14731BC118C900E044D7 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1D14721BC118C900E044D7 /* Button.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		EC1D14671BC1050500E044D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EC1D146A1BC1050500E044D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EC1D146C1BC1050500E044D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC1D14721BC118C900E044D7 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				EC1D14691BC1050500E044D7 /* LaunchScreen.storyboard */,
 				EC1D146C1BC1050500E044D7 /* Info.plist */,
 				EC1D14641BC1050500E044D7 /* tetriz.xcdatamodeld */,
+				EC1D14721BC118C900E044D7 /* Button.swift */,
 			);
 			path = tetriz;
 			sourceTree = "<group>";
@@ -140,6 +143,7 @@
 				EC1D14601BC1050500E044D7 /* ViewController.swift in Sources */,
 				EC1D145E1BC1050500E044D7 /* AppDelegate.swift in Sources */,
 				EC1D14661BC1050500E044D7 /* tetriz.xcdatamodeld in Sources */,
+				EC1D14731BC118C900E044D7 /* Button.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,32 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBAction func Right(sender: AnyObject) {
+        print ("right")
+        
+    }
+    @IBAction func Up(sender: AnyObject) {
+        print ("up")
+    }
+    @IBAction func Bottom(sender: AnyObject) {
+        print ("bottom")
+    }
+    @IBAction func Left(sender: AnyObject) {
+        print ("Left")
+        
+    }
+    
+    @IBAction func RotateCW(sender: AnyObject) {
+        print ("rotate CW")
+        
+    }
+    @IBAction func RotateCCW(sender: AnyObject) {
+        print ("Rotate ccw")
+    }
+    
+    @IBOutlet weak var Right: Button!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
