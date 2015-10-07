@@ -58,7 +58,7 @@
                                     <action selector="RotateCW:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e6A-Ao-trl"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sLP-6r-wVM">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sLP-6r-wVM" customClass="PlayGrid" customModule="tetriz">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
@@ -179,6 +179,7 @@
                     </view>
                     <connections>
                         <outlet property="Right" destination="eBq-5c-aBj" id="8Ur-xu-lg3"/>
+                        <outlet property="playGrid" destination="sLP-6r-wVM" id="leF-6Y-EwQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
