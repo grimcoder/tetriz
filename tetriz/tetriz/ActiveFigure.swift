@@ -5,7 +5,7 @@ class ActiveFigure: UIView {
     let unit : Int = 24
     @IBInspectable var fillColor: UIColor = UIColor.blackColor()
     
-    var figure: Figure = Figure(fromOrientation: Orientation.Up, fromType: FigureType.El){
+    var figure: Figure = Figure(fromOrientation: Orientation.Up, fromType: FigureType.El, x:0, y:0){
         didSet{
             setNeedsDisplay()
         }

@@ -31,31 +31,10 @@
                                     <rect key="frame" x="11" y="542" width="60" height="49"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="11" y="570" width="60" height="49"/>
+                                    <rect key="frame" x="103" y="566" width="60" height="49"/>
                                 </variation>
                                 <connections>
                                     <action selector="RotateCCW:" destination="BYZ-38-t0r" eventType="touchUpInside" id="z2A-Oh-qSd"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ljv-R6-xWc" customClass="Button" customModule="tetriz" customModuleProvider="target">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="Rotate">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="fillColor">
-                                        <color key="value" red="0.25017787359999999" green="0.36993251579999997" blue="0.5327493687" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="80" y="541" width="60" height="49"/>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="80" y="569" width="60" height="49"/>
-                                </variation>
-                                <connections>
-                                    <action selector="RotateCW:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e6A-Ao-trl"/>
                                 </connections>
                             </button>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sLP-6r-wVM" customClass="PlayGrid" customModule="tetriz">
@@ -87,27 +66,6 @@
                                 </variation>
                                 <connections>
                                     <action selector="Bottom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lKm-Wm-Cea"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vg-Nm-d5V" customClass="Button" customModule="tetriz" customModuleProvider="target">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="UP">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="fillColor">
-                                        <color key="value" red="0.25017787359999999" green="0.36993251579999997" blue="0.5327493687" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="212" y="504" width="60" height="49"/>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="257" y="530" width="60" height="49"/>
-                                </variation>
-                                <connections>
-                                    <action selector="Up:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b1y-yH-O0k"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eBq-5c-aBj" customClass="Button" customModule="tetriz" customModuleProvider="target">
@@ -152,28 +110,47 @@
                                     <action selector="Left:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vtL-Zn-PPF"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ljv-R6-xWc" customClass="Button" customModule="tetriz" customModuleProvider="target">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Rotate">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="fillColor">
+                                        <color key="value" red="0.25017787359999999" green="0.36993251579999997" blue="0.5327493687" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="80" y="541" width="60" height="49"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="35" y="566" width="60" height="49"/>
+                                </variation>
+                                <connections>
+                                    <action selector="RotateCW:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e6A-Ao-trl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.81157835160000003" green="1" blue="0.9243851032" alpha="1" colorSpace="calibratedRGB"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="GIx-Jn-UQh"/>
-                                <exclude reference="ljv-R6-xWc"/>
                                 <exclude reference="sLP-6r-wVM"/>
                                 <exclude reference="oxF-Y1-LEk"/>
-                                <exclude reference="8vg-Nm-d5V"/>
                                 <exclude reference="eBq-5c-aBj"/>
                                 <exclude reference="Icz-gj-EfW"/>
+                                <exclude reference="ljv-R6-xWc"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="GIx-Jn-UQh"/>
-                                <include reference="ljv-R6-xWc"/>
                                 <include reference="sLP-6r-wVM"/>
                                 <include reference="oxF-Y1-LEk"/>
-                                <include reference="8vg-Nm-d5V"/>
                                 <include reference="eBq-5c-aBj"/>
                                 <include reference="Icz-gj-EfW"/>
+                                <include reference="ljv-R6-xWc"/>
                             </mask>
                         </variation>
                     </view>

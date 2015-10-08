@@ -1,8 +1,12 @@
 class Matrix {
+    
     var array: [[Int]] = []
     
-    init(){
-        
+    var blocks = [[Int]]()
+    
+
+    func reset(){
+    
         for _ in 0...9 {
             var columnArray = Array<Int>()
             for _ in 0...20 {
@@ -10,7 +14,17 @@ class Matrix {
             }
             array.append(columnArray)
         }
+        
     }
+    
+    init(){
+    
+        reset()
+        array[19][0] = 1
+        array[19][1] = 1
+        array[19][3] = 1
+    }
+    
 }
 
 enum Orientation{
@@ -36,17 +50,27 @@ class Figure {
     var array: [[Int]] = []
     
     var orientaion: Orientation = Orientation.Up
-    
+    var x : Int = 2
+    var y: Int = -2
     var type: FigureType = FigureType.Stick
     
-    init(fromOrientation orient: Orientation, fromType type: FigureType ){
-
-        self.orientaion = orient
-        self.type = type
-
+    init(fromFigure:Figure){
+        self.orientaion = fromFigure.orientaion
+        self.type = fromFigure.type
+        self.x = fromFigure.x
+        self.y=fromFigure.y
+        self.array = fromFigure.array
         array = initArray()
     }
     
+    init(fromOrientation orient: Orientation, fromType type: FigureType, x:Int, y:Int ){
+
+        self.orientaion = orient
+        self.type = type
+        self.x = x
+        self.y=y
+        array = initArray()
+    }
     
     func rotateCCW(){
         
