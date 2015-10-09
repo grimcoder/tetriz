@@ -10,14 +10,21 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var LinesText: UILabel!
+    @IBOutlet weak var MaxLines: UILabel!
 
+    @IBOutlet weak var NextFigureCanvas: UIView!
     var gameTimer: NSTimer!
-    let tick = 0.3
+    var tick = 0.5
     let unit : Int = 24
+    var lines = 0;
+    var max = 0;
     
-    @IBOutlet weak var playGrid: PlayGrid!
+    @IBOutlet var playGrid: PlayGrid!
     
     var activeFigure: ActiveFigure!
+    
+    var nextFigure: ActiveFigure?
     
     func  canMoveRight(arr:[[Int]]) ->Bool {
         
@@ -50,10 +57,15 @@ class ViewController: UIViewController {
     func inBounds(testFigure:Figure) -> Bool {
         let arr = testFigure.array
         for (x, column) in arr.enumerate() {
+            
             for (y, _) in column.enumerate() {
-                if (arr[x][y] == 1 && (y + testFigure.y > 19  || x + testFigure.x < 0 || x + testFigure.x > 9 )) {
+                
+                if (arr[x][y] > 0 && (y + testFigure.y > 19  || x + testFigure.x < 0 || x + testFigure.x > 9  ||
+                    (y + testFigure.y > 0 && playGrid.matrix.array[x + testFigure.x][y + testFigure.y] > 0)))
+                {
                     return false
                 }
+                
             }
         }
         return true
@@ -74,7 +86,7 @@ class ViewController: UIViewController {
             return}
         
         activeFigure.figure.x++
-        activeFigure.frame.offsetInPlace(dx: 24, dy: 0)
+        activeFigure.frame.offsetInPlace(dx: CGFloat(unit), dy: 0)
     }
     
     
@@ -82,8 +94,9 @@ class ViewController: UIViewController {
         
         if (canMoveDown(activeFigure.figure.array) != true) {
             return}
-        activeFigure.frame.offsetInPlace(dx: 0, dy: 24)
+        activeFigure.frame.offsetInPlace(dx: 0, dy: CGFloat(unit))
         activeFigure.figure.y++
+        Bottom(self)
     }
     
     @IBAction func Left(sender: AnyObject) {
@@ -91,7 +104,7 @@ class ViewController: UIViewController {
         if (canMoveLeft(activeFigure.figure.array) != true) {
             return}
         activeFigure.figure.x--
-        activeFigure.frame.offsetInPlace(dx: -24, dy: 0)
+        activeFigure.frame.offsetInPlace(dx: -1 * CGFloat(unit), dy: 0)
     }
     
     @IBAction func RotateCW(sender: AnyObject) {
@@ -113,35 +126,91 @@ class ViewController: UIViewController {
         if  canMoveDown(activeFigure.figure.array)
         {
             activeFigure.figure.y++
-            activeFigure.frame.offsetInPlace(dx: 0, dy: 24)
+            activeFigure.frame.offsetInPlace(dx: 0, dy: CGFloat(unit))
         }
         else
         {
-            activeFigure.figure.y = -2
+            //merge figure to matrix 
+            
+            for (x, column) in activeFigure.figure.array.enumerate() {
+                for (y, _) in column.enumerate() {
+                    
+                    if (activeFigure.figure.array[x][y] > 0){
+                        
+                        playGrid.matrix.array[x + activeFigure.figure.x][y + activeFigure.figure.y] = activeFigure.figure.array[x][y]
+                        
+                    }
+                    
+                }
+            }
+            
+            removeFullLines()
+            
+            playGrid.setNeedsDisplay()
+            activeFigure.removeFromSuperview()
+            activeFigure = nil
+            
             CreateNewActiveFigure()
-            
-            
         }
         
         //self.view.setNeedsDisplay()
         
     }
     
+    func removeFullLines(){
+        for var y = 19; y>0; --y{
+            if (getRow(y, arr: playGrid.matrix.array).filter({$0 > 0}).count == 10 ){
+                
+                playGrid.matrix.array = removeRow(y, arr: playGrid.matrix.array)
+                
+                y++
+                lines++
+                LinesText.text = "\(lines)"
+            }
+        }
+    }
+    
+    func getRow(index: Int, arr: [[Int]]) -> [Int] {
+        return arr.map({i in i[index]})
+    }
+    
+    func removeRow(index: Int, arr: [[Int]]) -> [[Int]] {
+        return arr.map({(var item)  in
+            item.removeAtIndex(index)
+            item.insert(0, atIndex:0)
+            return item  })
+    }
+
     func CreateNewActiveFigure(){
-        
-        let rand = arc4random_uniform(6)
+
         let startX = 2
         let startY = -2
+
+        if (nextFigure == nil){
+            nextFigure = ActiveFigure(frame: CGRectMake(0, 0, 96, 96))
+            nextFigure!.backgroundColor = UIColor.clearColor()
+            nextFigure!.tag = 100
+            nextFigure!.userInteractionEnabled = true
+            //nextFigure!.fillColor = UIColor.orangeColor()
+            nextFigure!.figure = Figure(fromOrientation: Orientation.Up, fromType: FigureType(rawValue: Int(arc4random_uniform(7)))!, x:startX, y:startY)
+            
+            NextFigureCanvas.addSubview(nextFigure!)
+        }
         
-        activeFigure = ActiveFigure(frame: CGRectMake(CGFloat(startX * 24), CGFloat(startY * 24), 96, 96))
-        
-        activeFigure.backgroundColor = UIColor.clearColor()
-        activeFigure.tag = 100
-        activeFigure.userInteractionEnabled = true
-        activeFigure.fillColor = UIColor.orangeColor()
-        activeFigure.figure = Figure(fromOrientation: Orientation.Up, fromType: FigureType(rawValue: Int(rand))!, x:startX, y:startY)
-        
+        nextFigure?.removeFromSuperview()
+        activeFigure = nextFigure
+        activeFigure.frame.offsetInPlace(dx: CGFloat(startX * unit), dy: CGFloat(startY * unit))
         playGrid.addSubview(activeFigure)
+        
+        nextFigure = ActiveFigure(frame: CGRectMake(CGFloat(0), CGFloat(0), 96, 96))
+        nextFigure!.backgroundColor = UIColor.clearColor()
+        nextFigure!.tag = 100
+        nextFigure!.userInteractionEnabled = true
+        //nextFigure!.fillColor = UIColor.orangeColor()
+        nextFigure!.figure = Figure(fromOrientation: Orientation.Up, fromType: FigureType(rawValue: Int(arc4random_uniform(7)))!, x:startX, y:startY)
+        
+        NextFigureCanvas.addSubview(nextFigure!)
+        
     }
     
     
@@ -149,7 +218,7 @@ class ViewController: UIViewController {
         
         super.viewDidLoad()
         CreateNewActiveFigure()
-        //gameTimer = NSTimer.scheduledTimerWithTimeInterval(tick, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
+        gameTimer = NSTimer.scheduledTimerWithTimeInterval(tick, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
         
 
         

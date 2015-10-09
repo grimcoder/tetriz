@@ -1,23 +1,19 @@
-//
-//  PlayGrid.swift
-//  tetriz
-//
-
-//  Created by Taras Kovtun on 10/4/15.
-//  Copyright © 2015 Taras Kovtun. All rights reserved.
-//
-
 import UIKit
 @IBDesignable
 class PlayGrid: UIView {
-    var matrix : Matrix = Matrix()
-    let unit = 24
+
+    @IBInspectable var fillColor: UIColor = UIColor.blackColor()
+    
+    var matrix = Matrix()
+    let unit : Int = 24
+    
     override func drawRect(rect: CGRect) {
         
-        for x in 0...10{
+        for x in 0...9{
             
-            for y in 0...20{
-                if (matrix.array[x][y] == 1) {
+            for y in 0...19{
+                if (matrix.array[x][y] > 0) {
+                    
                     let path = UIBezierPath()
                     path.moveToPoint(CGPoint(x:x*unit+0,y:y*unit+0))
                     path.addLineToPoint(CGPoint(x:x*unit+0, y:y*unit+24))
@@ -25,7 +21,8 @@ class PlayGrid: UIView {
                     path.addLineToPoint(CGPoint(x:x*unit+24, y:y*unit+0))
                     path.closePath()
                     
-                    fillColor.setFill()
+                    GetColor(matrix.array[x][y]).setFill()
+                    
                     path.fill()
                     
                 }

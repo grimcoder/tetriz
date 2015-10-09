@@ -32,7 +32,7 @@
 		EC1D14741BC1FFC900E044D7 /* PlayGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayGrid.swift; sourceTree = "<group>"; };
 		EC1D14761BC2033200E044D7 /* ActiveFigure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveFigure.swift; sourceTree = "<group>"; };
 		EC1D14781BC24D2300E044D7 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
-		EC1D147A1BC3922200E044D7 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		EC607D931BC630BB00D98E01 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +76,7 @@
 				EC1D14741BC1FFC900E044D7 /* PlayGrid.swift */,
 				EC1D14761BC2033200E044D7 /* ActiveFigure.swift */,
 				EC1D14781BC24D2300E044D7 /* Matrix.swift */,
-				EC1D147A1BC3922200E044D7 /* MyPlayground.playground */,
+				EC607D931BC630BB00D98E01 /* MyPlayground.playground */,
 			);
 			path = tetriz;
 			sourceTree = "<group>";
@@ -274,6 +274,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.grimcoder.tetriz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -285,6 +286,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.grimcoder.tetriz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -307,6 +309,7 @@
 				EC1D14711BC1050500E044D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

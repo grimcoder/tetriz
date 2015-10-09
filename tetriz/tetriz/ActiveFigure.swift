@@ -30,7 +30,7 @@ class ActiveFigure: UIView {
         for x in 0...3{
             
             for y in 0...3{
-                if (figure.array[x][y] == 1) {
+                if (figure.array[x][y] > 0) {
                 let path = UIBezierPath()
                 path.moveToPoint(CGPoint(x:x*unit+0,y:y*unit+0))
                 path.addLineToPoint(CGPoint(x:x*unit+0, y:y*unit+24))
@@ -38,7 +38,7 @@ class ActiveFigure: UIView {
                 path.addLineToPoint(CGPoint(x:x*unit+24, y:y*unit+0))
                 path.closePath()
                 
-                fillColor.setFill()
+                GetColor(figure.array[x][y]).setFill()
                     path.fill()
                     
                 }
