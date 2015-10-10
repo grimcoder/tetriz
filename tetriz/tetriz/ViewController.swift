@@ -165,6 +165,15 @@ class ViewController: UIViewController {
                 
                 y++
                 lines++
+                
+                if (max < lines){
+                    max = lines
+                    
+                    let defaults = NSUserDefaults.standardUserDefaults()
+                    defaults.setInteger(lines, forKey: "max")
+                    MaxLines.text = String(max)
+                    
+                }
                 LinesText.text = "\(lines)"
             }
         }
@@ -217,6 +226,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let name = defaults.stringForKey("max")
+        {
+            max = Int(name)!
+            MaxLines.text = name
+        }
+        
         CreateNewActiveFigure()
         gameTimer = NSTimer.scheduledTimerWithTimeInterval(tick, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
         
