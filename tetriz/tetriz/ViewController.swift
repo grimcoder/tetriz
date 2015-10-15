@@ -99,6 +99,17 @@ class ViewController: UIViewController {
         Bottom(self)
     }
     
+    func Down(sender: AnyObject) {
+        
+        if (canMoveDown(activeFigure.figure.array) != true) {
+            return}
+        activeFigure.frame.offsetInPlace(dx: 0, dy: CGFloat(unit))
+        activeFigure.figure.y++
+        //Bottom(self)
+    }
+    
+
+    
     @IBAction func Left(sender: AnyObject) {
         
         if (canMoveLeft(activeFigure.figure.array) != true) {
@@ -243,19 +254,20 @@ class ViewController: UIViewController {
         print ("x:\(translation.x)")
         print ("y:\(translation.y)")
         print (step)
-        if (step == 5) {
+        if (step >= 5) {
             
             step=0
             
             if (abs(translation.y) > abs(translation.x)) {
                 if (translation.y < 0) {
                     RotateCW(self)
+                    step = -5
                 }
                 else{
-                    Bottom(self)
-                    
+                    Down(self)
+                    step = 2
                 }
-                step = -5
+                
                 return
             }
             
