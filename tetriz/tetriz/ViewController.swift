@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var LinesText: UILabel!
     @IBOutlet weak var MaxLines: UILabel!
-
+    let swipeRec = UISwipeGestureRecognizer()
     @IBOutlet weak var NextFigureCanvas: UIView!
     var gameTimer: NSTimer!
     var tick = 0.5
@@ -222,10 +222,59 @@ class ViewController: UIViewController {
         
     }
     
+    func swipedView(){
+//        let tapAlert = UIAlertController(title: "Swiped", message: "You just swiped the swipe view", preferredStyle: UIAlertControllerStyle.Alert)
+//        tapAlert.addAction(UIAlertAction(title: "OK", style: .Destructive, handler: nil))
+//        self.presentViewController(tapAlert, animated: true, completion: nil)
+    }
+    
+    let panRec = UIPanGestureRecognizer()
+    var step = 0
+    
+    func draggedView(sender:UIPanGestureRecognizer){
+        
+        self.view.bringSubviewToFront(sender.view!)
+        let translation = sender.translationInView(self.view)
+
+//        sender.view!.center = CGPointMake(sender.view!.center.x + translation.x, sender.view!.center.y + translation.y)
+//        sender.setTranslation(CGPointZero, inView: self.view)
+        
+        step++
+        print ("x:\(translation.x)")
+        print ("y:\(translation.y)")
+        print (step)
+        if (step == 5) {
+            
+            step=0
+            
+            if (abs(translation.y) > abs(translation.x)) {
+                if (translation.y < 0) {
+                    RotateCW(self)
+                }
+                else{
+                    Bottom(self)
+                }
+                return
+            }
+            
+            if (translation.x>0){
+                Right(self)
+            }
+            else{
+                Left(self)
+            }
+        }
+        
+    }
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        self.view.addGestureRecognizer(swipeRec)
+        
+           self.view.addGestureRecognizer(panRec)
+        panRec.addTarget(self, action: "draggedView:")
+        swipeRec.addTarget(self, action: "swipedView")
         let defaults = NSUserDefaults.standardUserDefaults()
         if let name = defaults.stringForKey("max")
         {
