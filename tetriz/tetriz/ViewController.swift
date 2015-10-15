@@ -253,7 +253,9 @@ class ViewController: UIViewController {
                 }
                 else{
                     Bottom(self)
+                    
                 }
+                step = -5
                 return
             }
             
