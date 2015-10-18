@@ -19,6 +19,8 @@ class ViewController: UIViewController {
     let unit : Int = 24
     var lines = 0;
     var max = 0;
+    var width = 10
+    var height = 20
     
     @IBOutlet var playGrid: PlayGrid!
     
