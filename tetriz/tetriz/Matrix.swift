@@ -8,9 +8,9 @@ class Matrix {
     
     func reset(){
         array = []
-        for _ in 0...9 {
+        for _ in 0...PlayGrid.width - 1 {
             var columnArray = Array<Int>()
-            for _ in 0...19 {
+            for _ in 0...PlayGrid.height - 1 {
                 columnArray.append(0)
             }
             array.append(columnArray)
@@ -41,6 +41,14 @@ enum FigureType : Int {
 
     case Stick
     case Cube
+    
+    
+    static var count: UInt32 {  // I called this "maximumRawValue" in the post
+        var max: UInt32 = 0
+        while let _ = self.init(rawValue: (Int)(++max)) {}
+        return max
+    }
+    
 }
 
 func GetColor(num: Int) -> UIColor{

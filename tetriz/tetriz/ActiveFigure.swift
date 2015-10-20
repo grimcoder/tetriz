@@ -2,7 +2,7 @@ import UIKit
 
 class ActiveFigure: UIView {
     
-    let unit : Int = 24
+    
     @IBInspectable var fillColor: UIColor = UIColor.blackColor()
     
     var figure: Figure = Figure(fromOrientation: Orientation.Up, fromType: FigureType.El, x:0, y:0){
@@ -25,7 +25,7 @@ class ActiveFigure: UIView {
     
     override func drawRect(rect: CGRect) {
         
-        
+        let unit : Int = PlayGrid.unit
         if (figure.array.count == 0) {}
         for x in 0...3{
             
@@ -33,9 +33,9 @@ class ActiveFigure: UIView {
                 if (figure.array[x][y] > 0) {
                 let path = UIBezierPath()
                 path.moveToPoint(CGPoint(x:x*unit+0,y:y*unit+0))
-                path.addLineToPoint(CGPoint(x:x*unit+0, y:y*unit+24))
-                path.addLineToPoint(CGPoint(x:x*unit+24, y:y*unit+24))
-                path.addLineToPoint(CGPoint(x:x*unit+24, y:y*unit+0))
+                path.addLineToPoint(CGPoint(x:x*unit+0, y:y*unit+unit))
+                path.addLineToPoint(CGPoint(x:x*unit+unit, y:y*unit+unit))
+                path.addLineToPoint(CGPoint(x:x*unit+unit, y:y*unit+0))
                 path.closePath()
                 
                 GetColor(figure.array[x][y]).setFill()

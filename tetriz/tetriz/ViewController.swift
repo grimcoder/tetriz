@@ -16,14 +16,20 @@ class ViewController: UIViewController {
     @IBOutlet weak var NextFigureCanvas: UIView!
     var gameTimer: NSTimer!
     var tick = 0.5
-    let unit : Int = 24
+
     var lines = 0;
     var max = 0;
-    var width = 10
-    var height = 20
+    let screenSize: CGRect = UIScreen.mainScreen().bounds
+
     
+    @IBOutlet weak var playGridWidth: NSLayoutConstraint!
+    
+    @IBOutlet weak var playGridHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var nextFigureWidth: NSLayoutConstraint!
     @IBOutlet var playGrid: PlayGrid!
     
+    @IBOutlet weak var nextFigureHeight: NSLayoutConstraint!
     var activeFigure: ActiveFigure!
     
     var nextFigure: ActiveFigure?
@@ -62,7 +68,7 @@ class ViewController: UIViewController {
             
             for (y, _) in column.enumerate() {
                 
-                if (arr[x][y] > 0 && (y + testFigure.y > 19  || x + testFigure.x < 0 || x + testFigure.x > 9  ||
+                if (arr[x][y] > 0 && (y + testFigure.y >= PlayGrid.height  || x + testFigure.x < 0 || x + testFigure.x >= PlayGrid.width  ||
                     (y + testFigure.y > 0 && playGrid.matrix.array[x + testFigure.x][y + testFigure.y] > 0)))
                 {
                     return false
@@ -88,7 +94,7 @@ class ViewController: UIViewController {
             return}
         
         activeFigure.figure.x++
-        activeFigure.frame.offsetInPlace(dx: CGFloat(unit), dy: 0)
+        activeFigure.frame.offsetInPlace(dx: CGFloat(PlayGrid.unit), dy: 0)
     }
     
     
@@ -96,7 +102,7 @@ class ViewController: UIViewController {
         
         if (canMoveDown(activeFigure.figure.array) != true) {
             return}
-        activeFigure.frame.offsetInPlace(dx: 0, dy: CGFloat(unit))
+        activeFigure.frame.offsetInPlace(dx: 0, dy: CGFloat(PlayGrid.unit))
         activeFigure.figure.y++
         Bottom(self)
     }
@@ -105,7 +111,7 @@ class ViewController: UIViewController {
         
         if (canMoveDown(activeFigure.figure.array) != true) {
             return}
-        activeFigure.frame.offsetInPlace(dx: 0, dy: CGFloat(unit))
+        activeFigure.frame.offsetInPlace(dx: 0, dy: CGFloat(PlayGrid.unit))
         activeFigure.figure.y++
         //Bottom(self)
     }
@@ -117,7 +123,7 @@ class ViewController: UIViewController {
         if (canMoveLeft(activeFigure.figure.array) != true) {
             return}
         activeFigure.figure.x--
-        activeFigure.frame.offsetInPlace(dx: -1 * CGFloat(unit), dy: 0)
+        activeFigure.frame.offsetInPlace(dx: -1 * CGFloat(PlayGrid.unit), dy: 0)
     }
     
     @IBAction func RotateCW(sender: AnyObject) {
@@ -139,7 +145,7 @@ class ViewController: UIViewController {
         if  canMoveDown(activeFigure.figure.array)
         {
             activeFigure.figure.y++
-            activeFigure.frame.offsetInPlace(dx: 0, dy: CGFloat(unit))
+            activeFigure.frame.offsetInPlace(dx: 0, dy: CGFloat(PlayGrid.unit))
         }
         else
         {
@@ -153,7 +159,6 @@ class ViewController: UIViewController {
                         playGrid.matrix.array[x + activeFigure.figure.x][y + activeFigure.figure.y] = activeFigure.figure.array[x][y]
                         
                     }
-                    
                 }
             }
             
@@ -171,8 +176,8 @@ class ViewController: UIViewController {
     }
     
     func removeFullLines(){
-        for var y = 19; y>0; --y{
-            if (getRow(y, arr: playGrid.matrix.array).filter({$0 > 0}).count == 10 ){
+        for var y = PlayGrid.height - 1; y > 0; --y {
+            if (getRow(y, arr: playGrid.matrix.array).filter({$0 > 0}).count == PlayGrid.width ){
                 
                 playGrid.matrix.array = removeRow(y, arr: playGrid.matrix.array)
                 
@@ -205,11 +210,11 @@ class ViewController: UIViewController {
 
     func CreateNewActiveFigure(){
 
-        let startX = 2
-        let startY = -2
+        let startX = 2 // middle of the figure matrix
+        let startY = -2 // matrix starts 2 levels above
 
         if (nextFigure == nil){
-            nextFigure = ActiveFigure(frame: CGRectMake(0, 0, 96, 96))
+            nextFigure = ActiveFigure(frame: CGRectMake(0, 0, CGFloat(PlayGrid.unit * 4), CGFloat(PlayGrid.unit * 4)))
             nextFigure!.backgroundColor = UIColor.clearColor()
             nextFigure!.tag = 100
             nextFigure!.userInteractionEnabled = true
@@ -221,15 +226,15 @@ class ViewController: UIViewController {
         
         nextFigure?.removeFromSuperview()
         activeFigure = nextFigure
-        activeFigure.frame.offsetInPlace(dx: CGFloat(startX * unit), dy: CGFloat(startY * unit))
+        activeFigure.frame.offsetInPlace(dx: CGFloat(startX * PlayGrid.unit), dy: CGFloat(startY * PlayGrid.unit))
         playGrid.addSubview(activeFigure)
         
-        nextFigure = ActiveFigure(frame: CGRectMake(CGFloat(0), CGFloat(0), 96, 96))
+        nextFigure = ActiveFigure(frame: CGRectMake(CGFloat(0), CGFloat(0), CGFloat(PlayGrid.unit * 4), CGFloat(PlayGrid.unit * 4)))
         nextFigure!.backgroundColor = UIColor.clearColor()
         nextFigure!.tag = 100
         nextFigure!.userInteractionEnabled = true
         //nextFigure!.fillColor = UIColor.orangeColor()
-        nextFigure!.figure = Figure(fromOrientation: Orientation.Up, fromType: FigureType(rawValue: Int(arc4random_uniform(7)))!, x:startX, y:startY)
+        nextFigure!.figure = Figure(fromOrientation: Orientation.Up, fromType: FigureType(rawValue: Int(arc4random_uniform(FigureType.count)))!, x:startX, y:startY)
         
         NextFigureCanvas.addSubview(nextFigure!)
         
@@ -286,9 +291,43 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        let screenWidth = screenSize.width
+        let screenHeight = screenSize.height
+        
+        
+//        NextFigureCanvas!.layer.borderWidth = 1
+//        
+//        NextFigureCanvas!.layer.borderColor = UIColor.redColor().CGColor
+        
+        if (screenWidth > 400){
+            PlayGrid.unit = 34
+        }
+        else if (screenWidth > 320){
+        PlayGrid.unit = 30
+        }
+        else{
+            if (screenHeight == 480){
+            PlayGrid.unit = 22
+            }
+            else{
+            PlayGrid.unit = 27
+            }
+        
+        }
+        
         self.view.addGestureRecognizer(swipeRec)
         
-           self.view.addGestureRecognizer(panRec)
+        self.view.addGestureRecognizer(panRec)
+        
+        playGridWidth.constant =  CGFloat(PlayGrid.width * PlayGrid.unit)
+        
+        playGridHeight.constant = CGFloat(PlayGrid.height * PlayGrid.unit)
+        
+        nextFigureWidth.constant = CGFloat(4 * PlayGrid.unit)
+        
+        nextFigureHeight.constant = CGFloat(4 * PlayGrid.unit)
+        
         panRec.addTarget(self, action: "draggedView:")
         swipeRec.addTarget(self, action: "swipedView")
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -300,9 +339,7 @@ class ViewController: UIViewController {
         
         CreateNewActiveFigure()
         gameTimer = NSTimer.scheduledTimerWithTimeInterval(tick, target: self, selector: "runTimedCode", userInfo: nil, repeats: true)
-        
 
-        
     }
 
     override func didReceiveMemoryWarning() {
